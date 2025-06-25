@@ -1,4 +1,5 @@
 ﻿using eCommerce.Core.RepositoryContracts;
+using eCommerce.Infrastructure.DbContext;
 using eCommerce.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +18,7 @@ namespace eCommerce.Infrastructure
         {
             //To DO : Add services  to the IOC container 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<DapperDbContext>();
             return services;
         }
     }

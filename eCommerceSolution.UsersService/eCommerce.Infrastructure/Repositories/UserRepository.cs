@@ -1,4 +1,5 @@
-﻿using eCommerce.Core.DTO;
+﻿using Dapper;
+using eCommerce.Core.DTO;
 using eCommerce.Core.Entities;
 using eCommerce.Core.RepositoryContracts;
 using eCommerce.Infrastructure.DbContext;
@@ -19,14 +20,35 @@ namespace eCommerce.Infrastructure.Repositories
         }
         public  async Task<ApplicationUser?> AddUser(ApplicationUser user)
         {
-            await Task.Delay(1);
+            
             user.UserID =Guid.NewGuid();
-            return user;
+
+            string query = "INSERT INTO" +
+                " public.\"Users\"(\"UserID\",\"Email\",\"PersonName\",\"Gender\",\"Password\") VALUES(@UserID,@Email,@PersonName,@Gender,@Password)";
+
+            int rowCountAffected = await _dbContext.DbConnection.ExecuteAsync(query, user);
+
+            if (rowCountAffected > 0)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<ApplicationUser?> GetUserByEmailAndPassword(string? email, string? password)
         {
-            await Task.Delay(1);
+            
+            //SQL query to select  a user  by Email and Password 
+
+            string query = "SELECT * From public.\"Users\" WHERE \"Email\"=@Email AND \"Password\" =@Password";
+
+            var parameters = new { Email = email, Password = password };
+          ApplicationUser? user=  await _dbContext.DbConnection.QueryFirstOrDefaultAsync<ApplicationUser>(query, parameters);
+
+            /*
             return new ApplicationUser
             {
                 UserID = Guid.NewGuid(),
@@ -36,6 +58,8 @@ namespace eCommerce.Infrastructure.Repositories
                 Gender=GenderOptions.Male.ToString(),
 
             };
+            */
+            return user;
 
         }
     }

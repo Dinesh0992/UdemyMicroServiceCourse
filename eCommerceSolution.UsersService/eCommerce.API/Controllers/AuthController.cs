@@ -46,7 +46,7 @@ namespace eCommerce.API.Controllers
 
             if (authenticationResponse == null || authenticationResponse.Success == false)
             {
-                return BadRequest(authenticationResponse);
+                return Unauthorized(authenticationResponse);
             }
             return Ok(authenticationResponse);
         }

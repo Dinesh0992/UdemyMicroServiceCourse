@@ -20,6 +20,7 @@ builder.Services.AddControllers().AddJsonOptions
 builder.Services.AddAutoMapper(typeof(ApplicationUserMappingProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(RegisterRequestMappingProfile).Assembly);
 
+
 //Build the Web application
 var app = builder.Build();
 app.UseExceptionHandlingMiddleware();

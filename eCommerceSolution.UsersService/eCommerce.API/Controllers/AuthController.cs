@@ -1,6 +1,10 @@
 ﻿using eCommerce.Core.DTO;
 using eCommerce.Core.ServiceContracts;
+using eCommerce.Core.Validators;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.API.Controllers
@@ -37,6 +41,9 @@ namespace eCommerce.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
+            LoginRequestValidator loginRequestValidator=new LoginRequestValidator();
+            loginRequestValidator.ValidateAndThrow(loginRequest);
+
             if (loginRequest == null)
             {
                 return BadRequest("Invalid Login Data");

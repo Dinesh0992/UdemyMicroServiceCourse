@@ -1,10 +1,6 @@
 ﻿using eCommerce.Core.DTO;
 using eCommerce.Core.ServiceContracts;
-using eCommerce.Core.Validators;
-using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+using eCommerce.API.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.API.Controllers
@@ -21,29 +17,28 @@ namespace eCommerce.API.Controllers
         }
 
         //Enpoint for user registration user case 
-        [HttpPost("register")] 
+        [HttpPost("register")]
+        [ServiceFilter(typeof(ValidationFilter<RegisterRequest>))]
         public async Task<IActionResult> Register(RegisterRequest registerRequest)
         {
-            if (registerRequest == null) 
+            if (registerRequest == null)
             {
                 return BadRequest("Invalid Registration Data");
             }
 
             AuthenticationResponse? authenticationResponse = await _userService.Register(registerRequest);
 
-           if(authenticationResponse==null || authenticationResponse.Success == false)
+            if (authenticationResponse == null || authenticationResponse.Success == false)
             {
                 return Unauthorized(authenticationResponse);
             }
-           return  Ok(authenticationResponse);
+            return Ok(authenticationResponse);
         }
 
         [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilter<LoginRequest>))]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            LoginRequestValidator loginRequestValidator=new LoginRequestValidator();
-            loginRequestValidator.ValidateAndThrow(loginRequest);
-
             if (loginRequest == null)
             {
                 return BadRequest("Invalid Login Data");
@@ -57,6 +52,5 @@ namespace eCommerce.API.Controllers
             }
             return Ok(authenticationResponse);
         }
-
     }
 }

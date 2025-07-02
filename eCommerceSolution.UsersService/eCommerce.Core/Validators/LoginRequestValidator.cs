@@ -16,7 +16,9 @@ namespace eCommerce.Core.Validators
 
             //Password
             RuleFor(temp => temp.Password)
-                .NotEmpty().WithMessage("Password is required");
+                .NotEmpty().WithMessage("Password is required")
+                .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
+                .Matches(@"[!@#$%^&*(),.?"":{}\|<>]").WithMessage("Password must contain at least one special character."); 
                 
         }
        

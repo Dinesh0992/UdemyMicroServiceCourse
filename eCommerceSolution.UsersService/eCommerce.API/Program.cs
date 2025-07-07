@@ -35,9 +35,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "eCommerce API",
+        Title = "eCommerce UserService API",
         Version = "v1",
-        Description = "An API for eCommerce application"
+        Description = "An API for eCommerce UserService application"
     });
 });
 

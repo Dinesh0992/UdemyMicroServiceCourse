@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eCommerce.DataAccessLayer.RepositoryContracts;
+using eCommerce.DataAccessLayer.Repositories;
 
 namespace eCommerce.ProductService.DataAccessLayer
 {
@@ -19,6 +21,8 @@ namespace eCommerce.ProductService.DataAccessLayer
             {
                 options.UseMySQL(configuration.GetConnectionString("DefaultConnection")!);
             });
+            // Register repositories
+            services.AddScoped<IProductRepository,ProductRepository>();
             return services;
         }
     }

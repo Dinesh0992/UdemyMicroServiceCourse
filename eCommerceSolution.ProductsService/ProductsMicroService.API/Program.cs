@@ -1,3 +1,4 @@
+using eCommerce.API.Filters;
 using eCommerce.ProductService.BusinessLogicLayer;
 using eCommerce.ProductService.DataAccessLayer;
 using eCommerce.ProductsMicroService.API.Middleware;
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDataAccessLayer(builder.Configuration);
 builder.Services.AddBusinessLogicLayer();
+// Register ValidationFilter
+builder.Services.AddScoped(typeof(ValidationFilter<>));
 
 
 //Add API explorer services

@@ -22,7 +22,7 @@ namespace eCommerce.ProductService.DataAccessLayer
                 options.UseMySQL(configuration.GetConnectionString("DefaultConnection")!);
             });
             // Register repositories
-            services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<IProductsRepository,ProductsRepository>();
             return services;
         }
     }

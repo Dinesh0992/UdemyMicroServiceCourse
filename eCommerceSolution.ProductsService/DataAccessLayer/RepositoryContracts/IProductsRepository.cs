@@ -8,7 +8,7 @@ namespace eCommerce.DataAccessLayer.RepositoryContracts;
 /// <summary>
 /// Represents the contract for product repository operations.
 /// </summary>
-public interface IProductRepository
+public interface IProductsRepository
 {
    Task<IEnumerable<Product>> GetProducts();
    Task<IEnumerable<Product?>> GetProductsByCondition(Expression<Func<Product, bool>> conditionExpression);

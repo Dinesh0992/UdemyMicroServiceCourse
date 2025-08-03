@@ -8,10 +8,10 @@ using System.Linq.Expressions;
 
 namespace eCommerce.DataAccessLayer.Repositories;
 
-public class ProductRepository : IProductRepository
+public class ProductsRepository : IProductsRepository
 {
     private readonly ApplicationDbContext _dbContext;
-    public ProductRepository(ApplicationDbContext dbContext)
+    public ProductsRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
 

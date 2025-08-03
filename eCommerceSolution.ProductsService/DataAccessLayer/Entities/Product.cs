@@ -6,9 +6,9 @@ namespace eCommerce.DataAccessLayer.Entities
     {
         [Key]
         public Guid ProductID { get; set; }
-        public string ProductName { get; set; }
+        public required string ProductName { get; set; }
 
-        public string Category { get; set; }
+        public required string Category { get; set; }
 
         public double? UnitPrice { get; set; }
 

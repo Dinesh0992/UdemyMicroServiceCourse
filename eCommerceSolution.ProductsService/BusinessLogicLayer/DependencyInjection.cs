@@ -1,13 +1,11 @@
-﻿using eCommerce.BusinessLogicLayer.DTO;
+﻿using eCommerce.BusinessLogicLayer.Services;
+using eCommerce.BusinessLogicLayer.DTO;
 using eCommerce.BusinessLogicLayer.Mappers;
+using eCommerce.BusinessLogicLayer.ServiceContracts;
 using eCommerce.BusinessLogicLayer.Validators;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace eCommerce.ProductService.BusinessLogicLayer
 {
@@ -20,7 +18,9 @@ namespace eCommerce.ProductService.BusinessLogicLayer
             services.AddScoped<IValidator<ProductAddRequest>, ProductAddRequestValidator>();
             services.AddScoped<IValidator<ProductUpdateRequest>, ProductUpdateRequestValidator>();
             services.AddAutoMapper(typeof(ProductAddRequestToProductMappingProfile).Assembly);
+            services.AddScoped<IProductsService, ProductsService>();
             return services;
         }
     }
 }
+  

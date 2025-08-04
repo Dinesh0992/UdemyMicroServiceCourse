@@ -2,6 +2,8 @@ using eCommerce.API.Filters;
 using eCommerce.ProductService.BusinessLogicLayer;
 using eCommerce.ProductService.DataAccessLayer;
 using eCommerce.ProductsMicroService.API.Middleware;
+using eCommerce.ProductsMicroService.API.APIEndpoints;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -38,6 +40,12 @@ builder.Services.AddCors(options =>
 //Add API explorer services
 builder.Services.AddEndpointsApiExplorer();
 
+//Add model binder to read values from JSON to enum
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+   options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 var app = builder.Build();
 
 app.UseExceptionHandlingMiddleware();
@@ -59,4 +67,6 @@ app.UseAuthorization();
 
 //controller routes
 app.MapControllers();
+
+app.MapProductAPIEndpoints();
 app.Run();

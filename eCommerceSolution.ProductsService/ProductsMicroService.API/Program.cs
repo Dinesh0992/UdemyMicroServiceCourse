@@ -37,8 +37,9 @@ builder.Services.AddCors(options =>
         );
 });
 
-//Add API explorer services
+//Add API explorer services and Swagger services
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 //Add model binder to read values from JSON to enum
 builder.Services.ConfigureHttpJsonOptions(options =>
@@ -59,9 +60,13 @@ app.UseSwagger();
 //Add SwaggerUI(interactive page to explore  and test API endpoints).
 app.UseSwaggerUI();
 
+
+
+//Enable CORS
 app.UseCors();
 
 //Auth
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

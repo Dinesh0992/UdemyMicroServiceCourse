@@ -1,2 +1,11 @@
 ﻿ docker build -t my-dotnet-product-app:initial -f ./ProductsMicroService.API/Dockerfile .
  docker run -p 8080:8080 -p 8081:8081 my-dotnet-product-app:initial
+
+ //For Docker hub push build command
+  docker build -t products-microservice:1.0 -f ./ProductsMicroService.API/Dockerfile .
+
+  //Docker hub tag addition 
+ docker tag products-microservice:1.0 dineshvaddn/ecommerce-products-microservice:v1.0
+
+ //Push the image to Docker hub 
+ docker push dineshvaddn/ecommerce-products-microservice:v1.0

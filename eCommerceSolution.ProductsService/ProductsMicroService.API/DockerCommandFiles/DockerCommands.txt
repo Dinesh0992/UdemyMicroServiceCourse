@@ -9,3 +9,18 @@
 
  //Push the image to Docker hub 
  docker push dineshvaddn/ecommerce-products-microservice:v1.0
+
+ //create a network for the microservice
+ docker network create productmicroservice-network
+
+ //List the networks to verify creation
+ docker network ls
+
+ //Inspect the created network
+ docker network inspect productmicroservice-network
+
+ //Run mysql container for product microservice in the created network
+ docker run -it -e MYSQL_ROOT_PASSWORD=admin  -p 3306:3306 --hostname=mysql-host-productmicroservice --network=productmicroservice-network mysql:latest
+
+ //Run the product microservice in the created network
+  docker run -p 8080:8080 --network=productmicroservice-network dineshvaddn/ecommerce-products-microservice:v1.0

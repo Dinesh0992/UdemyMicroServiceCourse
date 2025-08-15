@@ -17,9 +17,15 @@ namespace eCommerce.ProductService.DataAccessLayer
         public static IServiceCollection AddDataAccessLayer(this IServiceCollection services,IConfiguration configuration)
         {
             // TO DO : Register your data access layer services here
+
+            string connectionStringTemplate = configuration.GetConnectionString("DefaultConnection")!;
+
+          string connectionString=  connectionStringTemplate.Replace("$MYSQL_HOST",Environment.GetEnvironmentVariable("MYSQL_HOST")??"localhost")
+                                    .Replace("$MYSQL_PASSWORD", Environment.GetEnvironmentVariable("MYSQL_PASSWORD")??"admin");
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseMySQL(configuration.GetConnectionString("DefaultConnection")!);
+                options.UseMySQL(connectionString);
             });
             // Register repositories
             services.AddScoped<IProductsRepository,ProductsRepository>();

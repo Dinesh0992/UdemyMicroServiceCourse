@@ -34,3 +34,5 @@
    //Run the product microservice with environment variables for MySQL connection and additional port
    docker run -it -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 --hostname=mysql-host-productmicroservice --network=productmicroservice-network -v "D:\UdemyMicroServiceCourse\eCommerceSolution.ProductsService\DataAccessLayer\MySQLScripts:/docker-entrypoint-initdb.d" mysql:latest
 
+   //Running Docker Compose yaml file which will run both MySQL and Product,User(will be added soon.) Microservices automatically
+   D:\UdemyMicroServiceCourse>docker-compose -f docker-compose.yaml up
